@@ -1,0 +1,30 @@
+﻿@page "/shoping"
+@using Shop.Shared
+@using Microsoft.AspNetCore.SignalR.Client
+
+<h3>Shoping</h3>
+<table>
+    <tr>
+        <td>
+            <div style="width:100px; height:100px; padding:10px; background-color:aquamarine">
+                <p>@Item.Naziv -- 5</p>
+            </div>
+            <button @onclick="Posalji" class="btn oi-cart" >  </button>
+        </td>
+    </tr>
+</table>
+
+@code 
+{   
+
+    Artikal Item = new Artikal("Artikl", 250);
+
+    [Parameter]
+    public HubConnection cHub { get; set; }
+    public async Task Posalji() 
+    {
+        await cHub.SendAsync("PrimiIteme", Item);
+    }
+
+
+}
